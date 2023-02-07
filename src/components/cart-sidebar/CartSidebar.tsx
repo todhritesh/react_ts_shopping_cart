@@ -1,4 +1,3 @@
-import React, { useEffect , useRef} from 'react'
 import { useShoppingCart } from '../../context/ShoppingCartContext'
 import styles from "./cart-sidebar.module.css"
 import CartItem from './CartItem'
@@ -9,7 +8,6 @@ type CartSidebarProps = {
 
 function CartSidebar({isOpen}:CartSidebarProps) {
   const {closeCart,cartItems} = useShoppingCart()
-  const sidebarRef = useRef<HTMLDivElement>(null)
 
   return (
       <div className={`${styles.sidebar} ${isOpen?styles.sidebar_open:styles.sidebar_close}`} >

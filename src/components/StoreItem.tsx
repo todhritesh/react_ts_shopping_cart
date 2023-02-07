@@ -1,6 +1,6 @@
-import React from 'react'
 import { useShoppingCart } from '../context/ShoppingCartContext'
 import { formatCurrency } from '../utls/formatPrice'
+import {motion} from "framer-motion"
 
 type StoreItemProps = {
     id : number ,
@@ -9,11 +9,24 @@ type StoreItemProps = {
     imgUrl : string 
 }
 
+const storeItemVariants = {
+    hidden:{
+        opacity:0,
+    },
+    whileInView:{
+        opacity:1,
+        transition:{
+            duration:1,
+            ease:"easeInOut"
+        }
+    }
+}
+
 function StoreItem({id , name , price , imgUrl} : StoreItemProps) {
     const {decreaseCartQty,getItemQty,increaseCartQty,removeFromCart} = useShoppingCart()
     let qty = getItemQty(id)
   return (
-    <div className="card">
+    <motion.div variants={storeItemVariants} initial="hidden" viewport={{once:true}} whileInView="whileInView" className="card">
         <div className="card-body d-flex flex-column ">
             <img style={{height:"200px",objectFit:"cover"}} src={imgUrl} alt="" className="img-fluid" />
             <div className="d-flex justify-content-between mt-3">
@@ -38,7 +51,7 @@ function StoreItem({id , name , price , imgUrl} : StoreItemProps) {
                 }
             </div>
         </div>
-    </div>
+    </motion.div>
   )
 }
 
